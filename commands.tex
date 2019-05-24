@@ -1,0 +1,52 @@
+\newcommand\MyBox[2]{
+  \fbox{\lower0.75cm
+    \vbox to 1.7cm{\vfil
+      \hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
+      \vfil}%
+  }%
+}
+
+% Command to print out the standardized title page
+\renewcommand{\titlepage}{
+ \newgeometry{top=65mm,bottom=30mm,left=50mm,right=35mm}
+\thispagestyle{empty}
+\begin{huge}
+  \begin{flushleft}
+    \noindent\sffamily\bfseries Machine Learning for Risk Assessment of Code \par
+  \end{flushleft}
+\end{huge}
+
+\vspace{10mm}
+\begin{large}
+  \begin{flushleft}
+    \sffamily
+    \expandafter\MakeUppercase\expandafter ARSALAN SYED \par
+    arsalans@kth.se
+  \end{flushleft}
+\end{large}
+
+\vfill
+
+\begin{flushleft}
+  \sffamily
+    Master in Computer Science\\
+    Date: \today\\
+    Supervisor: Benoit Baudry\\
+    Examiner: Martin Monperrus\\
+    Supervisor at principal: Alexander Andelkovic\\
+    Host company: King\\
+    School of Electrical Engineering and Computer Science\\
+    Swedish title: Maskininlärning för riskbedömning av kod\\
+\end{flushleft}
+\restoregeometry
+\cleardoublepage
+}
+
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+\renewenvironment{abstract}{\section*{\abstractname}}{\clearpage} 

@@ -1,0 +1,86 @@
+\documentclass[12pt]{report}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,swedish]{babel}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{blindtext}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{filecontents}
+\usepackage{hyperref}
+\usepackage{float} 
+\usepackage{fancyhdr}
+\usepackage[bottom]{footmisc}
+\usepackage{array} 
+\usepackage{multirow}
+\usepackage{subcaption} 
+\usepackage{pdfpages}
+\usepackage[labelfont={bf}, margin=1cm]{caption}
+\usepackage{afterpage}
+
+    
+\input{commands.tex}
+
+\renewcommand\familydefault{\sfdefault}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\graphicspath{{images/}{../images/}}
+\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+
+%\pagenumbering{roman}
+
+\begin{document}
+
+\selectlanguage{english}
+\pagenumbering{gobble}
+% --------------------------- THESIS ---------------------------- %
+
+\pagestyle{empty}
+\includepdf[pages={1}, pagecommand={}]{kth-cover.pdf}
+\afterpage{\blankpage}
+\titlepage
+\input{frontmatter/abstract.tex}
+\selectlanguage{swedish}
+\input{frontmatter/sammanfattning.tex}
+\selectlanguage{english}
+\input{frontmatter/acknowledgements.tex}
+\tableofcontents
+
+% --------------------------- MAIN MATTER ---------------------------- %
+
+\pagenumbering{arabic}
+\setcounter{page}{0}
+\subfile{chapters/1_introduction}
+\subfile{chapters/2_background}
+\subfile{chapters/3_technical_contribution}
+\subfile{chapters/4_methodology}
+\subfile{chapters/5_results}
+\subfile{chapters/6_discussion}
+\subfile{chapters/7_conclusion}
+
+% ------------------------ REFERENCES --------------------------- %
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain} 
+\bibliography{references/bibliography.bib}
+
+
+% ------------------------- APPENDIX ---------------------------- %
+
+
+\includepdf[pages={2}, pagecommand={}]{kth-cover.pdf}
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Conclusion}
+
+In this work, the performance of various well known classifiers was investigated in order to have a better understanding of which models are best suited to Just-in-time defect predictions. It was found that models based on ensemble techniques and decision trees such as TLEL, random forest and XGBoost perform well overall. Additionally, models such as random forest and XGBoost can outperform deep neural networks. The K nearest neighbours model significantly underperforms compared to the other models. 
+
+Next, in order to see if it was possible to reduce the amount of labelled training data, the performance and applications of the self-training algorithm was investigated. It was found that that the self-training algorithm does not have an improved performance over its corresponding supervised model when supplied the same amount of labelled data. It does however have the ability to achieve similar performance to supervised models that use more labelled data. Also, there is no observed benefit of running the self-training algorithm for a large number of iterations. Out of the confidence thresholds 0.8, 0.85 and 0.9, none of them appear to significantly outperform the others.
+
+A defect prediction tool was created and deployed at King in order to evaluate the performance of defect prediction models when their predictions are sent and reviewed by software developers. Although this model could achieve higher accuracy and precision than a random model, there is still a large discrepancy between the cross validation performance and its performance when evaluated by developers.
+
+Finally, to grasp a better understanding of how developers at King identified and dealt with bugs, ten interviews were conducted. The interviews provide some responses that could be of interest for researchers experimenting with defect prediction models as well as anyone who is interested in how bugs are identified and resolved. The interviews found that developers tend to identify bugs through inspecting logs, relying on frequent unit testing, manually inspecting code as well as communicating with other team members. The types of tools used are typically static analysis tools, version control tools such as Git as well as tools that automate testing. According to developers, risky code tends to be difficult to read and comprehend, has too many dependencies on other code and does not follow proper coding practices. The top causes of bugs are suggested to be a lack of time and resources, incorrect assumptions on how code was meant to function as well as code being poorly organized. 
+
+
+\section{Future Work}
+
+This section suggests potential topics that could be explored in the future for the field of software defect prediction. 
+
+\subsubsection{Case studies}
+
+Some more emphasis could be put on evaluating defect prediction models in practice as it is important to understand if these models have a clear benefit for developers. It needs to be understood if it is sufficient for developers to simply know if a commit is risky or if they need exact suggestions for what the commit has done wrong.
+
+\subsubsection{Machine learning}
+
+New features for defect prediction models could be incorporated using information from sources other than GitHub such as the build status or success rate of tests. A challenge would be to optimize the collection of this data so that it can be available for every commit. One could also delve deeper into semi-supervised learning techniques. Although the self-training algorithm does not lead to improvements in performance, its utility is in the fact that it reduces the need for labelled data. One could investigate more complex techniques such as generative models or SV3M. 
+
+\subsubsection{ASZZ vs SZZ}
+
+A major benefit of the ASZZ algorithm is the fact that it can be used for any project that is structured using Git. However, if the algorithm degrades the quality of data too much, it may not be viable in practice one would be limited to defect prediction models for projects with a bug tracking database. It is worth investigating the limitations of this algorithm, possibly through evaluating its performance on a manually verified dataset. 
+
+\end{document}
