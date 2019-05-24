@@ -97,11 +97,11 @@ For this section, the result of running the evaluation algorithm (see algorithm 
 
 \subsection{Experimenting with Five Models}\label{subsection:experiment1}
 
-Tables \ref{table:rq2_exp1_Precision}, \ref{table:rq2_exp1_Recall} and \ref{table:rq2_exp1_F1} show the precision, recall and F1 score for each model when applied on all nine datasets. Each table cell has two values, one for the supervised model and another for its self-trained counterpart. The values in bold are those where the self-training algorithm made a statistically significant improvement over its respective base classifier. In all cases, these models manage to achieve higher than random performances which indicate that the models have found some connection between the provided features and whether or not a commit is risky. 
+Tables \ref{table:rq2_exp1_Precision}, \ref{table:rq2_exp1_Recall} and \ref{table:rq2_exp1_F1} show the precision, recall and F1 score for each model when applied on all nine datasets. Each table cell has two values, one for the supervised model (top row in cell) and another for its self-trained counterpart (bottom row in cell). The values in bold are those where the self-training algorithm made a statistically significant improvement over its respective base classifier. In all cases, these models manage to achieve higher than random performances which indicate that the models have found some connection between the provided features and whether or not a commit is risky. 
 
 \subsubsection{Precision}
 
-When it comes to self-training performance, the self-training algorithm does not appear to improve performance when both classifiers are provided the exact same amount of labelled data. As seein in table \ref{table:rq2_exp1_Precision}, K-nearest neighbours has the most benefit from self-training as seen for the JDT, Platform, Postgres, C2 and C3 projects. However, even with this increase, KNN is performing worse than the tree based models (RF, ADA, XGB). In most cases, the precision due to self-training is similar or slightly lower than the base performance. Also, the precision on the commercial projects happens to be higher, possibly due to a smaller class imbalance.
+When it comes to self-training performance, the self-training algorithm does not appear to improve performance when both classifiers are provided the exact same amount of labelled data. As seen in table \ref{table:rq2_exp1_Precision}, K-nearest neighbours has the most benefit from self-training as seen for the JDT, Platform, Postgres, C2 and C3 projects. However, even with this increase, KNN is performing worse than the tree based models (RF, ADA, XGB). In most cases, the precision due to self-training is similar or slightly lower than the base performance. Also, the precision on the commercial projects happens to be higher, possibly due to a smaller class imbalance.
 
 
 
@@ -177,7 +177,7 @@ Table \ref{table:rq2_exp1_F1} shows that that the commercial projects have much 
 
 \begin{table}[H] 
  \centering 
-  \caption{F1 for various models and datasets, bold value represents cases where self-training provides a statistically significant improvement over the base classifier} 
+  \caption{F1 score for various models and datasets, bold value represents cases where self-training provides a statistically significant improvement over the base classifier} 
  \begin{tabular}{|p{15mm}p{15mm}p{15mm}p{15mm}p{15mm}p{15mm}P{15mm}|} 
  \hline 
  Project &LR & RF & ADA & XGB & KNN & RAND\\ 
@@ -288,7 +288,7 @@ This section shows the results of the case study that was performed (see section
     \label{table:rq3Perf}
 \end{table}
 
-Table \ref{table:rq3Perf} shows the trained model's performance metrics which are derived from the confusion matrix above. It also shows the performance of a random model as a worst case baseline. Finally, the column \textbf{Cross validation performance} contains the results obtained from the tables \ref{table:rq1_Precision}, \ref{table:rq1_Recall} and \ref{table:rq1_F1} for the exact same project and model. There is a large discrepancy between the performance achieved when evaluating with datasets labelled by the approximate SZZ as opposed evaluating on manually labelled commits. Reasons for this could be that the definition of a risky commit according to developers and to the SZZ algorithm are different. 
+Table \ref{table:rq3Perf} shows the trained model's performance metrics which are derived from the confusion matrix above. It also shows the performance of a random model as a worst case baseline. Finally, the column \textbf{Cross validation performance} contains the results obtained from the tables \ref{table:rq1_Precision}, \ref{table:rq1_Recall} and \ref{table:rq1_F1} for the exact same project and model. There is a large discrepancy between the performance achieved when evaluating with datasets labelled by the approximate SZZ as opposed evaluating on manually labelled commits. A reason for this could be that the definition of a risky commit according to developers is different to the definition that the SZZ algorithm considers.
 
 \section{Research Question 4 Results}
 
@@ -296,7 +296,7 @@ For this research question, the conducted interviews asked 10 participants a tot
 
 \subsection{Interview topic 1: Identifying the Origin of Bugs}
 
-\textit{Once you realize something is faulty with your software, how do you go about locating the origin of the bug ?}
+\textit{Once you realise something is faulty with your software, how do you go about locating the origin of the bug ?}
 
 \begin{table}[H]
 \centering

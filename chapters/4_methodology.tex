@@ -48,7 +48,7 @@ In their work \textit{A Large-Scale Empirical Study of Just-in-Time Quality Assu
 
 \subsection{Newly Collected Data}
 
-As seen in chapter \ref{chapter:technical_contribution} of the report, the implemented data collection tool was used to collect data on several proprietary projects at Kings. The data that was collected included all commits from these project except those that represented merges between branches in Git. Merge commits were excluded because they represent a collection of several commits as one large change, hence distorting the dataset as an outlier. Also, merge commits are created automatically by Git rather than a developer and defect prediction tools intend to predict on commits made by developers. The names and percent of buggy commits for the commercial projects in table \ref{table:allData} are anonymous for confidentiality reasons. Most of the features in the new datasets were computed in an identical manner to those in the Kamei datasets. The reason for not including the exact same set of features as the old datasets was due to limitations in time when implementing the tool. 
+The implemented tool described in chapter \ref{chapter:technical_contribution} of the report was used to collect data on several proprietary projects at Kings. The data that was collected included all commits from these project except those that represented merges between branches in Git. Merge commits were excluded because they represent a collection of several commits as one large change, hence distorting the dataset as an outlier. Also, merge commits are created automatically by Git rather than a developer and defect prediction tools intend to predict on commits made by developers. The names and percent of buggy commits for the commercial projects in table \ref{table:allData} are anonymous for confidentiality reasons. Most of the features in the new datasets were computed in an identical manner to those in the Kamei datasets. The reason for not including the exact same set of features as the old datasets was due to limitations in time when implementing the tool. 
 
 \subsection{Features Used}
 
@@ -61,7 +61,7 @@ First, the features with a high positive Pearson correlation coefficient were re
 \begin{table}[H]
     \centering
      \caption{\textbf{Features used in Table \ref{table:allData} datasets}}
-   \begin{tabular}{|p{15mm} |p{85mm} |p{30mm} |} 
+   \begin{tabular}{|P{15mm} |p{85mm} |P{30mm} |} 
         \hline
         \textbf{Name} & \textbf{Description} & \textbf{Datasets used in}\\ 
         \hline\hline
@@ -106,7 +106,7 @@ First, the features with a high positive Pearson correlation coefficient were re
 
 \section{Experimental Setup}
 
-All scripts for the experiments were implemented in Python 3. The Scikit-learn library was used to create, train and evaluate machine learning models such as logistic regression, random forest, Adaboost and K-nearest neighbours. The XGBoost model was provided under a separate python package \footnote{XGBoost documentation https://xgboost.readthedocs.io/en/latest/}. The Pandas library was used for preprocessing the datasets and MatplotLib was used for all graphs and visualisations. An open-source implementation of the self-training algorithm was used in experiments for the first research question \footnote{https://github.com/tmadl/semisup-learn/blob/master/frameworks/SelfLearning.py}. When generating random floating point numbers, the random library was used with a seed of 42. All of the scripts were executed on hardware provided at King. All scripts were executed on high-end build servers provided at King. 
+All scripts for the experiments were implemented in Python 3. The Scikit-learn library was used to create, train and evaluate machine learning models such as logistic regression, random forest, Adaboost and K-nearest neighbours. The XGBoost model was provided under a separate python package \footnote{XGBoost documentation https://xgboost.readthedocs.io/en/latest/}. The Pandas library was used for preprocessing the datasets and MatplotLib was used for all graphs and visualisations. An open-source implementation of the self-training algorithm was used in experiments for the first research question \footnote{https://github.com/tmadl/semisup-learn/blob/master/frameworks/SelfLearning.py}. When generating random floating point numbers, the random library was used with a seed of 42. All scripts were executed on high-end build servers provided at King. 
 
 \section{Experiments}
 
@@ -118,12 +118,11 @@ For this question, the performance of five classifiers was evaluated using 10-fo
 
 \subsubsection{Classification Models Used}
 
-The chosen models were logistic regression (LR), random forest (RF), AdaBoost (ADA), XGBoost (XGB) and K-nearest neighbours (KNN). Logistic regression was chosen in order to observe how self-training affects a linear classification model. Random forest was chosen as tree based methods tend to outperform linear models for software defect predictions. AdaBoost and XGBoost were chosen to compare boosting methods with bagging methods such as random forest. Finally, K-nearest neighbours was selected to have another non parametric model that was not tree based. No approaches based on artificial neural networks were used 
-because they require a lot of data to perform well. When creating defect prediction models for smaller projects, neural networks may not be as viable. Also, when evaluating the usefulness of the self-training algorithm, the performance of neural networks may be much lower than in normal circumstances as they would have access to less data.
+The chosen models were logistic regression (LR), random forest (RF), AdaBoost (ADA), XGBoost (XGB) and K-nearest neighbours (KNN). Logistic regression was chosen in order to observe how self-training affects a linear classification model. Random forest was chosen as tree based methods tend to outperform linear models for software defect predictions. AdaBoost and XGBoost were chosen to compare boosting methods with bagging methods such as random forest. Finally, K-nearest neighbours was selected to have another non parametric model that did not use decision trees. No approaches based on artificial neural networks (ANN) were used because they require a lot of data to perform well. If the amount of data supplied to an ANN is not sufficient enough, one would get a false impression that these models perform poorly overall at JIT defect predictions.
 
 \subsubsection{Parameters for Classification Models}
 
-The parameters for logistic regression was the \textit{lbfgs} solver and 5000 maximum iterations. Random forest used 100 estimators and K-nearest neighbours used $k=5$ for the number of neighbours. All other parameters for these models used the default values provided by the scikit-learn package in Python. All classifiers had their classification threshold set to 0.5. As binary classifiers output a probability between 0 and 1, a threshold of 0.5 indicates that any value above 0.5 becomes classified as risky and any value below it is labelled as not risky. 
+Logistic regression used the \textit{lbfgs} solver and 5000 maximum iterations. Random forest used 100 estimators and K-nearest neighbours used $k=5$ for the number of neighbours. All other parameters for these models used the default values provided by the scikit-learn package in Python. All classifiers had their classification threshold set to 0.5. As binary classifiers output a probability between 0 and 1, a threshold of 0.5 indicates that any value above 0.5 becomes classified as \textit{risky} and any value below it is labelled as \textit{not risky}. 
 
 \subsubsection{Performance Metrics Used}
 
@@ -140,7 +139,7 @@ In order to answer this question, the performance of various classifiers must be
 
 \subsubsection{Evaluating Self-Training Using Cross Validation}
 
-The evaluation procedure involves providing supervised models and their self-trained counterpart with training data and evaluating their performance on test data. Every commit in each dataset is labelled so in order to simulate a setting where a model has access to labelled and unlabelled data, a portion of labels must be removed. Although the supervised classifier will only be able to train on the labelled instances, the semi-supervised classifier can make use of labelled and unlabelled instances. Both classifiers are ensured to train on the exact same set of labelled training data. 
+The evaluation procedure involves providing supervised models and their self-trained counterpart with training data and evaluating their performance on test data. Every commit in each dataset is labelled so in order to simulate a setting where a model has access to labelled and unlabelled data, a portion of labels must be removed. Although the supervised classifier will only be able to train on the labelled instances, the semi-supervised classifier can make use of labelled and unlabelled instances. Both classifiers are ensured to train on the exact same set of labelled training data and are evaluated.
 
 \begin{figure}[H]
     \centering
@@ -150,26 +149,9 @@ The evaluation procedure involves providing supervised models and their self-tra
 \end{figure}
 
 
-Algorithm \ref{algorithm:evaluation} is used repeatedly when measuring performance in each of the experiments. The models used in the experiments for this research question are identical to those used for research question 1. In the algorithm below, $D$ is a dataset, $M \in \{LR, RF, ADA, XGB, KNN\}$ is the model type, $I$ is the maximum number of iterations the self-training algorithm runs for, $C$ is the confidence threshold for the self-training algorithm and $U$ is the fraction of training data that will be made unlabelled. In order to verify the specified null hypothesis above, three experiments were performed. 
+Algorithm \ref{algorithm:evaluation} is used repeatedly when measuring performance in each of the experiments for this research question. The models used in the experiments for this research question are identical to those used for research question 1. In the algorithm below, $D$ is a dataset, $M \in \{LR, RF, ADA, XGB, KNN\}$ is the model type, $I$ is the maximum number of iterations the self-training algorithm runs for, $C$ is the confidence threshold for the self-training algorithm and $U$ is the fraction of training data that will be made unlabelled. In order to verify the specified null hypothesis above, three experiments were performed. 
 
-\begin{comment}
-
-Given our unprocessed datasets $\{D_1, D_2, ..., D_n\}$, a classifier $f$ can be evaluated on each dataset using $k$-fold cross validation where $k=10$, similar to previous research. Given the parameters $I, C, U$ such that:
-\end{comment}
-\begin{comment}
-\begin{enumerate}
-         \item $D_{train}^L$ only has labelled instances ($|D_{train}^L|=(1-U) \cdot |D_{train}|$)
-         \item $D_{train}^U$ only has unlabelled instances ($|D_{train}^U|=U \cdot |D_{train}|$)
-\end{enumerate} 
-\begin{description}
-\item [$I$] is the max number of iterations for the self-training algorithm, $I=$\selfTrainMaxIter
-\item [$C$] is the minimum confidence for a prediction on unlabelled data, $C \in \{0.8,0.85,0.9\}$
-\item [$U$] is the fraction of instances that will have their labels removed,
-$U \in \{0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8\}$ (U=0 indicates that all training data is untouched).  
-\end{description}
-\end{comment}
-
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Evaluates the performance of semi-supervised vs supervised classifiers}
 \label{algorithm:evaluation}
 \begin{algorithmic}[1]
@@ -205,7 +187,7 @@ This experiment involves running algorithm \ref{algorithm:evaluation} for each o
 
 \subsubsection{Varying the percentage of labelled data}
 
-Here, algorithm \ref{algorithm:evaluation} ran on the C1 dataset using a random forest model with 100 estimators. The percentage of labelled data was varied from 10\% to 100\% with a step size of 10\%. The confidence thresholds used where 0.80, 0.85 and 0.90 and the number of max iterations for self-training was set to 20. The purpose of this experiment was to see after what point does the additional unlabelled data become useful and to see the trade-off between performance and the reduction in labelled data.
+Here, algorithm \ref{algorithm:evaluation} ran on the C1 dataset using a random forest model with 100 estimators. The percentage of labelled data was varied from 10\% to 100\% with a step size of 10\%. The confidence thresholds used where 0.80, 0.85 and 0.90 and the number of max iterations for self-training was set to 20. The purpose of this experiment was to explore the point at which unlabelled data becomes useful and to see the trade-off between performance and reduction in labelled data.
 
 \subsubsection{Varying the number of iterations for self-training}
 
@@ -218,9 +200,9 @@ In order to evaluate this question, a case study was set up in order to evaluate
     \textit{$H_0:$ "An online machine learning tool that has trained on data that was labelled using ASZZ does not have an increased ability at spotting risky commits"}.
 \end{center}
 
-Seven developers which were working on the C3 project (see table \ref{table:allData}) were recruited and all of their latest commits on this project were recorded. The tool described in chapter 3 sent out predictions periodically to each participants so that they would only see predictions for commits that they authored and committed. Each participant was then asked to state if they agreed or disagreed with the prediction. In order to compare the model to a baseline, a random model was used to make predictions on the exact same set of commits that the trained model predicted on. The metrics that were recorded for both the trained and random model were accuracy precision and recall. As the commits produced by developers all happened to have a label of \textit{not risky}, manual labelling and the SZZ algorithm were used in order to find risky commits for the trained model to predict on. 
+Seven developers which were working on the C3 project (see table \ref{table:allData}) were recruited and all of their latest commits on this project were recorded. The tool described in chapter 3 sent out predictions periodically to each participants so that they would only see predictions for commits that they authored and committed. Each participant was then asked to state if they agreed or disagreed with the prediction. In order to compare the model to a baseline, a random model was used to make predictions on the exact same set of commits that the trained model predicted on. The metrics that were recorded for both the trained and random model were accuracy, precision, recall and F1 score. As the commits produced by developers all happened to have a label of \textit{not risky}, manual labelling and the SZZ algorithm were used in order to find risky commits for the trained model to predict on. 
 
-The theoretical values for each of these metrics can be derived for the random model. Given $n$ commits where $r$ have a true label of \textit{risky} and $p$ being the probability that the random model outputs the label \textit{risky}, the random model would then have the following metrics:
+The theoretical values for the performance metrics can be derived for the random model. Given $n$ commits where $r$ have a true label of \textit{risky} and $p$ being the probability that the random model outputs the label \textit{risky}, the random model would then have the following metrics:
 
 \begin{equation}
      TP = p \cdot r
@@ -274,6 +256,6 @@ In order to answer this question, qualitative interviews were performed at King 
     \item What do you believe are the top causes of bugs ? 
 \end{enumerate}
 
-The motivation for asking these questions is that it may give an insight as to how software developers can identify code that contains defects. It could potentially also lead to new ideas for features that machine learning models could rely on. Additionally, it can help to build a solution that can benefit the developers in practice. 
+The motivation for asking these questions is that it may give an insight as to how software developers can identify code that contains defects. It could potentially also lead to new ideas for features that defect prediction models could rely on. Additionally, it can help to build defect prediction systems so that they benfit developers as much as possible. 
 \end{document}
 
